@@ -1,0 +1,25 @@
+
+Javascript 面向对象编程
+1/ Script 
+2/ Backend: AJAX, jQuery
+
+Node.js <-> Angular.js <-> React.js
+
+Express 框架作用于多个部分的链接： Client - Server - Database
+
+MongoDB 非关系型数据库 NoSQL (JSON Format)
+User: {
+ weight: 187,
+ age: 16
+}
+
+
+SQL 关系型数据库 Weight -- User
+Weight: ID: 1, Value: 187(lb)
+User: ID: 0001, Weight: 1
+
+EJS === HTML 
+
+Mongoose 是一个包，帮助你在nodejs去调用已经被mongodb写好的api
+
+Bootstrap 
