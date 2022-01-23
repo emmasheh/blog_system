@@ -16,6 +16,10 @@ $(() => {
     const $regBtn = $("#reg-btn");
     // 获取警告框
     const $warningBox = $(".alert");
+    // 获取登出按钮
+    const $logoutBtn = $("#logout-btn");
+
+    
 
     // 切换到登录/注册界面的方法
     (() => {
@@ -97,18 +101,22 @@ $(() => {
                 }
         });
     });
-});
 
 
-//!! 用户登出的前端ajax请求
-$logoutBtn.on("click", () => {
-    $.ajax({
-        type: "get",
-        url: "/api/user/logout",
-        success: (result) => {
-            if (result) {
-                window.location.reload();
+    //!! 用户登出的前端ajax请求
+    $logoutBtn.on("click", () => {
+        console.log("点啦")
+        $.ajax({
+            type: "get",
+            url: "/api/user/logout",
+            success: (result) => {
+                console.log(result)
+                if (result) {
+                    window.location.reload();
+                }
             }
-        }
+        });
     });
 });
+
+

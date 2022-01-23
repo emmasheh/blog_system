@@ -159,4 +159,5 @@ router.get("/user/logout", (req, res, next) => {
     // 将cookie设为null
     req.cookies.set("userInfo", null);
     res.json(responseData);
+    console.log("我在")
 });

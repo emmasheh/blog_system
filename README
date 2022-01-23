@@ -23,3 +23,24 @@ EJS === HTML
 Mongoose 是一个包，帮助你在nodejs去调用已经被mongodb写好的api
 
 Bootstrap 
+
+
+---------------
+GitHub 使用
+---------------
+I. 上传
+1/ git add .
+2/ git commit -m "first commit"
+3/ git push
+
+II. 下载
+1/ git pull
+
+
+Client <- ajax -> Express <- router -> MongoDB
+前端               框架App              数据库
+页面：views        API: routes          长什么样：schemas
+功能：public/js    配置: app.js          创建不同的object：models
+
+get 拿数据
+post 发数据

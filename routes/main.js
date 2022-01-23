@@ -8,7 +8,7 @@ const router = express.Router();
 // 首页路由配置
 router.get("/", (req, res) => {
     // 渲染首页模板
-    res.render("main", {
+    res.render("main/index", {
         // 给模板引擎绑定数据
         userInfo: req.userInfo
     });
