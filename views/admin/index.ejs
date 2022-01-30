@@ -1,0 +1,14 @@
+  <!-- 引用页头文件:views/admin/header.ejs 因为和header在同一层，所以不用写根目录位置 -->
+  <%- include("header") %>
+ <!-- 以前的内容在下面 -->
+  <div class="container-fluid">
+    <div class="jumbotron">
+      <!-- userInfo 是从后台首页路由接收到的 GET /admin -->
+      <h1>Hello, <%=userInfo.username%></h1>
+      <p>欢迎进入后台管理界面</p>
+      <p><a class="btn btn-primary btn-lg" href="/admin/content/add" role="button">立即开始</a></p>
+    </div>
+  </div>
+  
+</body>
+</html>

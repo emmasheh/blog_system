@@ -105,7 +105,6 @@ $(() => {
 
     //!! 用户登出的前端ajax请求
     $logoutBtn.on("click", () => {
-        console.log("点啦")
         $.ajax({
             type: "get",
             url: "/api/user/logout",

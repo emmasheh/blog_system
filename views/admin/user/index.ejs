@@ -1,0 +1,32 @@
+<!-- 引用页头文件 -->
+<%- include("../header") %>
+<!-- 以前的内容在下面 -->
+  <div class="container-fluid">
+    <ol class="breadcrumb">
+      <li><a href="/admin">管理首页</a></li>
+      <li class="active">用户列表</li>
+    </ol>
+    <table class="table table-hover table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>用户名</th>
+          <th>密码</th>
+          <th>是否是管理员</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%for(let i = 0, len = docs.length; i < len; i++){%>
+          <tr>
+            <td><%=docs[i]._id%></td>
+            <td><%=docs[i].username%></td>
+            <td><%=docs[i].password%></td>
+            <td><%=(docs[i].isadmin?"是":"")%></td>
+          </tr>
+        <%}%>
+      </tbody>
+    </table>
+  </div>
+  <%- include("../../pagination") %>
+</body>
+</html>

@@ -134,6 +134,7 @@ router.post("/user/login", (req, res, next) => {
                     username: user.username,
                     userid: user._id
                 };
+                // 因为登陆成功，所以cookie存在本地 =》谁允许我存在本地？ =》配置的时候 =》 app.js
                 // 设置cookie信息
                 req.cookies.set("userInfo", JSON.stringify(responseData.userInfo));
                 res.json(responseData);

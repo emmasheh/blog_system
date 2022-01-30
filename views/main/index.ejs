@@ -18,10 +18,18 @@
         </div>
         <div class="container">
           <ul class="nav navbar-nav">
-              <li  class="active"><a href="/">首页</a></li>
-              <li><a href="javascript:;">Java</a></li>
-              <li><a href="javascript:;">Python</a></li>
-              <li><a href="javascript:;">Node.js</a></li>
+              <% if (!other.categoryId) {%>
+                <li  class="active"><a href="/">首页</a></li>
+              <% } else {%>
+                <li><a href="/">首页</a></li>
+              <% } %>
+              <% for (let i = 0, len = other.categories.length; i < len; i++) {%>
+                <% if (other.categoryId === other.categories[i].id) {%>
+                  <li class="active"><a href="/?categoryId=<%= other.categories[i].id %>"><%= other.categories[i].name %></a></li>
+                <% } else {%>
+                  <li><a href="/?categoryId=<%= other.categories[i].id %>"><%= other.categories[i].name %></a></li>
+                <% } %>
+              <% } %>
           </ul>
         </div>
       </nav>
@@ -31,24 +39,16 @@
   <div class="container">
     <!-- 内容部分 -->
     <div class="col-md-8">
+      <% for(let i = 0, len = docs.length; i < len; i++) { %>
         <div class="well">
-          <h3>博客标题</h3>
-          <p>内容简介</p>
+          <h3><%=docs[i].title%></h3>
+          <p><%=docs[i].description%></p>
           <a href="javascript:;" class="btn btn-info">阅读全文</a>
-          <span class="text-info pull-right">点击量 时间 作者 分类</span>
+          <span class="text-info pull-right">阅读量：<%=docs[i].views%> | 时间：<%=docs[i].addTime%> | 作者:<%=docs[i].author.username%> | 分类:<%=docs[i].category.name%></span>
         </div>
-        <div class="well">
-          <h3>博客标题</h3>
-          <p>内容简介</p>
-          <a href="javascript:;" class="btn btn-info">阅读全文</a>
-          <span  class="text-info pull-right">点击量 时间 作者 分类</span>
-        </div>
-        <div class="well">
-          <h3>博客标题</h3>
-          <p>内容简介</p>
-          <a href="javascript:;" class="btn btn-info">阅读全文</a>
-          <span  class="text-info pull-right">点击量 时间 作者 分类</span>
-        </div>
+      <% } %>
+        <!-- 分页 -->
+        <%- include("../pagination") %>
     </div>
     <!-- 登录、注册、用户面板部分 -->
     <div class="col-md-4">
@@ -107,9 +107,16 @@
         <div class="panel panel-primary">
         	<div class="panel-heading">用户面板</div>
           <div class="panel-body">
-            <h3>欢迎，<%=userInfo.username%>！</h3>
+            <%if (userInfo.isadmin) {%>
+            <h3>欢迎尊贵的管理员，<%=userInfo.username%>!</h3>
             <p>
-              <button id="logout-btn" type="button" name="button" class="btn btn-danger form-control">注销</button>
+              <a href="/admin" class="btn btn-primary form-control">进入控制台</a>
+            </p>
+            <%} else {%>
+            <h3>欢迎您，<%=userInfo.username%>！</h3>
+            <%}%>
+            <p>
+              <button type="button" name="button" id="logout-btn" class="btn btn-danger form-control">注销</button>
             </p>
           </div>
         </div>
@@ -117,8 +124,8 @@
       <%}%>
     </div>
   </div>
+  <script src="/public/js/3.3.1-jquery-min.js"></script>
+  <script src="/public/js/bootstrap.min.js"></script>
+  <script src="/public/js/main.js"></script>
 </body>
-<script src="/public/js/3.3.1-jquery-min.js"></script>
-<script src="/public/js/bootstrap.min.js"></script>
-<script src="/public/js/main.js"></script>
 </html>

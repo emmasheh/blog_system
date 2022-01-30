@@ -1,4 +1,4 @@
-// 引入相关模块
+// 引入express框架
 const express = require("express");
 
 // 引入mongoose模块
@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 // 实例化一个express对象
 let app = express();
 
+// 引用用户模型对象
+const userModel = require("./models/user");
 
 // 引入cookies模块
 const Cookies = require("cookies");
@@ -29,10 +31,18 @@ app.use((req, res, next) => {
     // 如果客户端中有cookie信息
     if (req.cookies.get("userInfo")) {
         // 将其解析后存入req.userInfo中
-        req.userInfo = JSON.parse(req.cookies.get("userInfo"))
+        req.userInfo = JSON.parse(req.cookies.get("userInfo"));
+        // 根据用户id从数据库中查询出当前登录用户的信息
+        userModel.findById(req.userInfo.userid).then((user) => {
+            // 以此判断当前用户是否为管理员
+            req.userInfo.isadmin = user.isadmin;
+            next();
+        });
+
+    } else {
+        // 继续下一个中间件
+        next();
     }
-    // 继续下一个中间件
-    next();
 });
 
 
@@ -57,7 +67,8 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 */
 // 所有通过"/"的url，都由./routes/main.js文件进行处理
 app.use("/", require("./routes/main.js"));
-
+// 所有"/admin"的url，都由./routes/admin.js文件进行处理
+app.use("/admin", require("./routes/admin.js"));
 
 // 连接数据库
 mongoose.connect("mongodb+srv://emma:123@blogsystem.bcfa4.mongodb.net/blog1?retryWrites=true&w=majority", (err) => {
