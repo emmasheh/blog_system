@@ -10,6 +10,7 @@ const router = express.Router();
 
 // 引入内容的模型，用来操作数据库
 const contentModel = require("../models/content");
+const categories = require("../schemas/categories");
 
 // 进行管理员验证:对用户的身份进行验证，非管理员的用户不允许访问 /admin 相关的路由
 router.use((req, res, next) => {
@@ -141,6 +142,7 @@ router.get("/category/edit", (req, res, next) => {
     // 根据id从数据库中查询相关数据
     categoryModel.findOne({_id: id}, (err, category) => {
         if (category) {
+            
             // 如何数据存在则渲染修改界面
             res.render("admin/category/edit", {
                 userInfo: req.userInfo,
@@ -161,7 +163,8 @@ router.get("/category/edit", (req, res, next) => {
 router.post("/category/edit", (req, res, next) => {
     // 获取修改后的id及名称
     let id = req.query.id;
-    let name = req.body.name;
+    let name = req.body.cat_name;
+    
 
     // 根据id从数据库中查询相关数据
     categoryModel.findById(id, (err, category) => {

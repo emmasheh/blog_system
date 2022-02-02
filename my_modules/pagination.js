@@ -51,6 +51,7 @@ const pagination = (object) => {
         let skip = (page - 1) * limit;
         // 分页查询出数据
         object.model.find(object.where).populate(populate).skip(skip).limit(limit).then((docs) => {
+            // console.log(docs)
             object.res.render(object.ejs, {
                 userInfo: object.req.userInfo,
                 docs: docs,

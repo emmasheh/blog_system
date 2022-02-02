@@ -3,6 +3,7 @@
 const express = require("express");
 // 引入用户数据模型，进行相应的操作
 const userModel = require("../models/user");
+const contentModel = require("../models/content");
 
 // 实例化Router对象
 const router = express.Router();
@@ -154,6 +155,54 @@ router.post("/user/login", (req, res, next) => {
     });
 });
 
+
+// 获取评论的接口
+router.get("/comment", (req, res) => {
+    //  获取提交的信息
+    let contentId = req.query.contentId || "";
+
+    // 根据id查询文章信息
+    contentModel.findById(contentId, (err, content) => {
+        if (!err) {
+            // 向客户端发送当前评论
+            res.json(content.comment);
+            return;
+        } else {
+            throw err;
+            return;
+        }
+    });
+});
+
+// 提交评论的接口
+router.post("/comment/post", (req, res) => {
+    //  获取提交的信息
+    let contentId = req.body.contentId;
+    let comment = req.body.comment;
+
+    // 构建评论结构
+    let commentData = {
+        username: req.userInfo.username,
+		postTime: new Date(),
+		content: comment
+    }
+
+    // 根据文章id将文章查询出来
+    contentModel.findById(contentId, (err, content) => {
+        if (!err) {
+            // 如果文章存在则将评论推入
+            content.comment.push(commentData);
+            // 保存
+            content.save();
+            // 向客户端发送当前评论
+            res.json(content);
+            return;
+        } else {
+            throw err;
+            return;
+        }
+    });
+});
 
 //!! 用户登出接口
 router.get("/user/logout", (req, res, next) => {

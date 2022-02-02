@@ -1,0 +1,41 @@
+<!-- 博客首页页头模板 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!--引用bootstrap样式-->
+  <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+  <title>EMMA'BLOG</title>
+</head>
+<body>
+  <!-- 页头 -->
+  <header>
+    <header>
+      <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">EMMA'BLOG</a>
+        </div>
+        <div class="container">
+          <ul class="nav navbar-nav">
+              <% if (!other.categoryId) {%>
+                <li  class="active"><a href="/">首页</a></li>
+              <% } else {%>
+                <li><a href="/">首页</a></li>
+              <% } %>
+              <% for (let i = 0, len = other.categories.length; i < len; i++) {%>
+                <% if (other.categoryId === other.categories[i].id) {%>
+                  <li class="active"><a href="/?categoryId=<%= other.categories[i].id %>"><%= other.categories[i].name %></a></li>
+                <% } else {%>
+                  <li><a href="/?categoryId=<%= other.categories[i].id %>"><%= other.categories[i].name %></a></li>
+                <% } %>
+              <% } %>
+          </ul>
+        </div>
+      </nav>
+    </header>
+  </header>
+
+  <script src="/public/js/3.3.1-jquery-min.js"></script>
+  <script src="/public/js/bootstrap.min.js"></script>
